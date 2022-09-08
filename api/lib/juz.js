@@ -1,3 +1,4 @@
+const { text } = require('express');
 const { data: juz } = require('../../data/juz.json');
 const { data: quran } = require('../../data/quran.json');
 
@@ -14,21 +15,84 @@ const juzData = (_inputJuz) => {
         _middleSurah, _lastSurah;
 
     if (startSurah === endSurah) {
-        juzAyah = quran[startSurah].verses.slice(startAyah, endAyah);
+        juzAyah = [];
+        quran[startSurah].verses.slice(startAyah, endAyah).forEach(item => {
+            juzAyah.push({
+                name: quran[startSurah].name,
+                number: item.number,
+                meta: item.meta,
+                text: item.text,
+                translation: item.translation,
+                audio: item.audio,
+                tafsir: item.tafsir,
+            });
+        });
     } else if ((endSurah - startSurah) > 1) {
-        _firstSurah = quran[startSurah].verses.slice(startAyah);
+        _firstSurah = [];
+        quran[startSurah].verses.slice(startAyah).forEach(item => {
+            _firstSurah.push({
+                name: quran[startSurah].name,
+                number: item.number,
+                meta: item.meta,
+                text: item.text,
+                translation: item.translation,
+                audio: item.audio,
+                tafsir: item.tafsir,
+            });
+        });
         _middle = quran.slice(startSurah + 1, endSurah);
         _middleSurah = [];
         _middle.map((items) => {
             items.verses.map((item) => {
-                _middleSurah.push(item);
+                _middleSurah.push({
+                    name: quran.slice(startSurah + 1, endSurah).name,
+                    number: item.number,
+                    meta: item.meta,
+                    text: item.text,
+                    translation: item.translation,
+                    audio: item.audio,
+                    tafsir: item.tafsir,
+                });
             });
         });
-        _lastSurah = quran[endSurah].verses.slice(0, endAyah);
+        _lastSurah = [];
+        quran[endSurah].verses.slice(0, endAyah).forEach(item => {
+            _lastSurah.push({
+                name: quran[endSurah].name,
+                number: item.number,
+                meta: item.meta,
+                text: item.text,
+                translation: item.translation,
+                audio: item.audio,
+                tafsir: item.tafsir,
+            });
+        })
         juzAyah = [..._firstSurah, ..._middleSurah, ..._lastSurah];
     } else {
-        _firstSurah = quran[startSurah].verses.slice(startAyah);
-        _lastSurah = quran[endSurah].verses.slice(0, endAyah);
+        _firstSurah = [];
+        quran[startSurah].verses.slice(startAyah).forEach(item => {
+            _firstSurah.push({
+                name: quran[startSurah].name,
+                number: item.number,
+                meta: item.meta,
+                text: item.text,
+                translation: item.translation,
+                audio: item.audio,
+                tafsir: item.tafsir,
+            });
+        });
+        _lastSurah = [];
+        quran[endSurah].verses.slice(0, endAyah).forEach(item => {
+            _lastSurah.push({
+                name: quran[endSurah].name,
+                number: item.number,
+                meta: item.meta,
+                text: item.text,
+                translation: item.translation,
+                audio: item.audio,
+                tafsir: item.tafsir,
+            });
+        });
         juzAyah = [..._firstSurah, ..._lastSurah];
     }
 

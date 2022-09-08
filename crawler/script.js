@@ -200,7 +200,7 @@ async function main() {
     data: response
   }, null, 2);
 
-  await writeFile('./data/quran.json', data.replace(/%u/g, '\\u'));
+  await writeFile('./data/quran1.json', data.replace(/%u/g, '\\u'));
   console.log(`\n> Writed ${response.length} surah.\n`);
   console.log('Generate Done!');
 }
