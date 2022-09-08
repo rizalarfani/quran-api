@@ -45,7 +45,7 @@ const juzData = (_inputJuz) => {
         _middle.map((items) => {
             items.verses.map((item) => {
                 _middleSurah.push({
-                    name: quran.slice(startSurah + 1, endSurah).name,
+                    name: items.name,
                     number: item.number,
                     meta: item.meta,
                     text: item.text,
@@ -66,7 +66,7 @@ const juzData = (_inputJuz) => {
                 audio: item.audio,
                 tafsir: item.tafsir,
             });
-        })
+        });
         juzAyah = [..._firstSurah, ..._middleSurah, ..._lastSurah];
     } else {
         _firstSurah = [];
